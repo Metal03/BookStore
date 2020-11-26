@@ -1,0 +1,71 @@
+<section id="register" class="mb-5 mt-5">
+    <div class="container">
+      <div class="row">
+  
+        <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
+          <div class="card_register">
+            <div class="card">
+              <div class="card-body text-center">
+                <form #formRegister="ngForm" (ngSubmit)="onAddUser(formRegister)">
+                  <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+                  <div class="alert alert-danger" role="alert" *ngIf="isError">
+                    {{msgError}}
+                  </div>
+                  <div class="form-group">
+                    <input type="email" #emailv name="email" class="form-control" placeholder="Email" [(ngModel)]="email" required
+                      minlength="8">
+                  </div>
+                  <div class="alert alert-danger" role="alert" *ngIf="emailv.touched && !emailv.valid">
+                    <div *ngIf="emailv.errors.required">Email is required</div>
+                    <div *ngIf="emailv.errors.minlength">Email must be at least 8 characters</div>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" #passwordv name="password" class="form-control" placeholder="Password" [(ngModel)]="password"
+                      required minlength="5" maxlength="10">
+                  </div>
+                  <div class="alert alert-danger" role="alert" *ngIf="passwordv.touched && !passwordv.valid">
+                    <div *ngIf="passwordv.errors.required">Password is required</div>
+                    <div *ngIf="passwordv.errors.minlength">Password must be at least 5 characters</div>
+                  </div>
+                  <hr>
+                  <div class="form-group">
+                    <!-- <div class="btn btn-rounded purple-gradient btn-sm float-left">
+                      <span>Seleccionar imagen</span>
+                      <input type="file" name="" id="" (change)="onUpload($event)" accept=".png, .jpg">
+                    </div> -->
+                    <div class="custom-input-file col-md-6 col-sm-6 col-xs-6">
+                      <input type="file" id="fichero-tarifas" class="input-file" (change)="onUpload($event)" accept=".png, .jpg">
+                      Subir imagen...
+                    </div>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadPercent | async)+'%'">
+                    </div>
+                  </div>
+                  <br>
+                  <input #imageUser type="hidden" name="" id="" [value]="urlImagen | async">
+                  <button *ngIf="urlImagen | async; else btnDisabled" type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
+                  <ng-template #btnDisabled>
+                  <button type="submit" disabled="true" class="btn btn-lg btn-secondary btn-block">Register</button>
+                  </ng-template>
+                  <div class="form-group">
+                    <a routerLink="/user/login" class="form-control login-user">Do you have account?</a>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-block btn-social btn-facebook" (click)="onLoginFacebook()">
+                      <span class="fa fa-facebook"></span>
+                      FACEBOOK
+                    </button>
+                    <button class="btn btn-block btn-social btn-google" (click)="onLoginGoogle()">
+                      <span class="fa fa-google"></span>
+                      GOOGLE
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
